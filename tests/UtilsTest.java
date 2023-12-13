@@ -9,18 +9,14 @@ class UtilsTest {
 	void readNonExistentTextFile() {
 		String fileName = "not a real file";
 
-		Assertions.assertThrows(IOException.class, () -> {
-			Utils.readTextFile(fileName);
-		});
+		Assertions.assertThrows(IOException.class, () -> Utils.readTextFile(fileName));
 	}
 
 	@Test
 	void readExistingFile() throws IOException {
 		String fileName = "./res/SimpleFile.txt";
 
-		Assertions.assertDoesNotThrow(() -> {
-			Utils.readTextFile(fileName);
-		});
+		Assertions.assertDoesNotThrow(() -> Utils.readTextFile(fileName));
 
 		Assertions.assertEquals("This is a simple text file", Utils.readTextFile(fileName));
 	}
@@ -44,7 +40,7 @@ class UtilsTest {
 	}
 
 	@Test
-	void startsWithtextInt() {
+	void startsWithTextInt() {
 		Assertions.assertEquals(0, Utils.startsWithTextInt("zERo"));
 		Assertions.assertEquals(1, Utils.startsWithTextInt("onetwothree"));
 		Assertions.assertEquals(2, Utils.startsWithTextInt("tWo dfdsfd"));
@@ -61,7 +57,7 @@ class UtilsTest {
 	}
 
 	@Test
-	void endsWithtextInt() {
+	void endsWithTextInt() {
 		Assertions.assertEquals(0, Utils.endsWithTextInt("zERo"));
 		Assertions.assertEquals(1, Utils.endsWithTextInt("threetwoone"));
 		Assertions.assertEquals(2, Utils.endsWithTextInt(" dfdsfd tWo"));
