@@ -1,5 +1,7 @@
 public class Day1 {
 
+	private static final Logger logger = new Logger();
+
 	/**
 	 * On each line, the calibration value can be found by combining the first digit and the last digit (in that order) to form a single two-digit number.
 	 * <p>
@@ -38,12 +40,12 @@ public class Day1 {
 				}
 			}
 
-			Logger.log(line.trim() + " --> " + firstNum + lastNum);
+			logger.log(line.trim() + " --> " + firstNum + lastNum);
 			sum += Integer.parseInt(firstNum + lastNum);
 		}
 
-		Logger.log("Sum = " + sum);
-		Logger.log();
+		logger.log("Sum = " + sum);
+		logger.log();
 
 		return sum;
 	}
@@ -63,9 +65,9 @@ public class Day1 {
 	 * <p>
 	 * In this example, the calibration values are 29, 83, 13, 24, 42, 14, and 76. Adding these together produces 281.
 	 *
-	 * @param calibrationDocument
+	 * @param calibrationDocument input
 	 *
-	 * @return
+	 * @return sum
 	 */
 	public static int calibrationSumPart2(String calibrationDocument) {
 		int sum = 0;
@@ -104,12 +106,12 @@ public class Day1 {
 				}
 			}
 
-			Logger.log(line.trim() + " --> " + firstNum + lastNum);
+			logger.log(line.trim() + " --> " + firstNum + lastNum);
 			sum += Integer.parseInt(firstNum + lastNum);
 		}
 
-		Logger.log("Sum = " + sum);
-		Logger.log();
+		logger.log("Sum = " + sum);
+		logger.log();
 
 		return sum;
 	}

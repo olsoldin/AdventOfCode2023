@@ -1,15 +1,9 @@
 import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
 
 class Day1Test {
-
-	@BeforeEach
-	void setup() {
-		Logger.setEnabled();
-	}
 
 	@Test
 	void calibrationSum() {
