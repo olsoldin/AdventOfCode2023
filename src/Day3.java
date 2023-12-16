@@ -1,7 +1,9 @@
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class Day3 {
 	public Day3() {
@@ -13,19 +15,17 @@ public class Day3 {
 
 		String[] rows = engineSchematic.trim().split("\n");
 
-		String blanks = new String(new char[rows[0].length()]).replace('\0', ' ');
-
 		for (int i = 0; i < rows.length; i++) {
 			String row = rows[i].trim();
 
 			// find the locations of any digits in the row
 			List<NumberLocation> numberLocations = getNumberLocations(row);
 
-			String rowBefore = blanks;
+			String rowBefore = "";
 			if (i > 0) {
 				rowBefore = rows[i - 1].trim();
 			}
-			String rowAfter = blanks;
+			String rowAfter = "";
 			if (i < rows.length - 1) {
 				rowAfter = rows[i + 1].trim();
 			}
@@ -105,5 +105,105 @@ public class Day3 {
 		}
 
 		return numberLocations;
+	}
+
+	public int sumGearRatios(String engineSchematic) {
+		int sum = 0;
+
+		String[] rows = engineSchematic.trim().split("\n");
+
+		// eg.
+		// rowNum: [ {number: 457, startIndex: 4, endIndex: 6}, {number: 555, startIndex: 7, endIndex: 9} ]
+		Map<Integer, List<NumberLocation>> numLocs = new HashMap<>();
+		// eg.
+		// rowNum: [ gear1Index, gear2Index, gear3Index ]
+		Map<Integer, List<Integer>> gearLocs = new HashMap<>();
+
+		for (int i = 0; i < rows.length; i++) {
+			String row = rows[i].trim();
+
+			// find the locations of any digits in the row
+			numLocs.put(i, getNumberLocations(row));
+			// find the locations of any gears in the row
+			gearLocs.put(i, getGearLocations(row));
+		}
+
+		for (int i = 0; i < rows.length; i++) {
+			List<NumberLocation> rowAbove = new ArrayList<>(0);
+			if (i > 0) {
+				rowAbove = numLocs.get(i - 1);
+			}
+			List<NumberLocation> row = numLocs.get(i);
+			List<NumberLocation> rowBelow = new ArrayList<>(0);
+			if (i < rows.length - 1) {
+				rowBelow = numLocs.get(i + 1);
+			}
+
+			// loop here
+			for (Integer gearLoc : gearLocs.get(i)) {
+				List<Integer> adjacentGears = getAdjacentGears(gearLoc, rowAbove, row, rowBelow);
+
+				int gearRatio = adjacentGears.size() == 2 ? 1 : 0;
+				for (int gear : adjacentGears) {
+					gearRatio *= gear;
+				}
+				sum += gearRatio;
+			}
+
+		}
+
+		return sum;
+	}
+
+	public List<Integer> getAdjacentGears(int gearLoc, List<NumberLocation> rowAbove, List<NumberLocation> row, List<NumberLocation> rowBelow) {
+		List<Integer> adjacentGears = new ArrayList<>();
+
+		// Above numbers
+		for (NumberLocation loc : rowAbove) {
+			if (locIntersects(gearLoc, loc)) {
+				adjacentGears.add(loc.number());
+			}
+		}
+		// same row numbers
+		for (NumberLocation loc : row) {
+			if (locIntersects(gearLoc, loc)) {
+				adjacentGears.add(loc.number());
+			}
+		}
+		//below numbers
+		for (NumberLocation loc : rowBelow) {
+			if (locIntersects(gearLoc, loc)) {
+				adjacentGears.add(loc.number());
+			}
+		}
+
+		if (adjacentGears.size() == 2) {
+			return adjacentGears;
+		}
+		return List.of();
+	}
+
+	public boolean locIntersects(int gearLoc, NumberLocation numberLocation) {
+		return gearLoc >= numberLocation.startIndex() - 1 && gearLoc <= numberLocation.endIndex() + 1;
+	}
+
+	public List<Integer> getGearLocations(String row) {
+		List<Integer> gearLocs = new ArrayList<>();
+
+		for (int i = 0; i < row.length(); i++) {
+			if (isGear(row.charAt(i))) {
+				gearLocs.add(i);
+			}
+		}
+
+		return gearLocs;
+	}
+
+	public boolean isGear(char input) {
+		return input == '*';
+	}
+
+	public int getGearRatio(int gear1, int gear2) {
+		return gear1 * gear2;
 	}
 }
