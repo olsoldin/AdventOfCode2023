@@ -130,20 +130,23 @@ public class Day3 {
 
 		for (int i = 0; i < rows.length; i++) {
 			List<NumberLocation> rowAbove = new ArrayList<>(0);
+			// The first row doesn't have anything above it
 			if (i > 0) {
 				rowAbove = numLocs.get(i - 1);
 			}
 			List<NumberLocation> row = numLocs.get(i);
 			List<NumberLocation> rowBelow = new ArrayList<>(0);
+			// The last row doesn't have anything below it
 			if (i < rows.length - 1) {
 				rowBelow = numLocs.get(i + 1);
 			}
 
-			// loop here
 			for (Integer gearLoc : gearLocs.get(i)) {
 				List<Integer> adjacentGears = getAdjacentGears(gearLoc, rowAbove, row, rowBelow);
 
-				int gearRatio = adjacentGears.size() == 2 ? 1 : 0;
+				// We don't want to accidentally multiply by 0,
+				// And we don't want to accidentally add 1
+				int gearRatio = adjacentGears.isEmpty() ? 0 : 1;
 				for (int gear : adjacentGears) {
 					gearRatio *= gear;
 				}
@@ -158,22 +161,18 @@ public class Day3 {
 	public List<Integer> getAdjacentGears(int gearLoc, List<NumberLocation> rowAbove, List<NumberLocation> row, List<NumberLocation> rowBelow) {
 		List<Integer> adjacentGears = new ArrayList<>();
 
-		// Above numbers
-		for (NumberLocation loc : rowAbove) {
+		List<NumberLocation> allLocs = new ArrayList<>(rowAbove.size() + row.size() + rowBelow.size());
+		allLocs.addAll(rowAbove);
+		allLocs.addAll(row);
+		allLocs.addAll(rowBelow);
+
+		for (NumberLocation loc : allLocs) {
 			if (locIntersects(gearLoc, loc)) {
 				adjacentGears.add(loc.number());
-			}
-		}
-		// same row numbers
-		for (NumberLocation loc : row) {
-			if (locIntersects(gearLoc, loc)) {
-				adjacentGears.add(loc.number());
-			}
-		}
-		//below numbers
-		for (NumberLocation loc : rowBelow) {
-			if (locIntersects(gearLoc, loc)) {
-				adjacentGears.add(loc.number());
+				if (adjacentGears.size() > 2) {
+					// no need to keep going, we know it's too many
+					break;
+				}
 			}
 		}
 
