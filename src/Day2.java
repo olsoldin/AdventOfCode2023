@@ -52,25 +52,26 @@ public class Day2 {
 			// Get the part after "Game 1: "
 			game = game.split(": ")[1];
 
-			int minRed = minNumCubes("red", game);
-			int minGreen = minNumCubes("green", game);
-			int minBlue = minNumCubes("blue", game);
-			sum += (minRed * minGreen * minBlue);
+			sum += minNumCubes(game);
 		}
 
 		return sum;
 	}
 
-	public static int minNumCubes(String colour, @NotNull String game) {
-		int maxColour = 0;
+	public static int minNumCubes(@NotNull String game) {
+		int maxRed = 0;
+		int maxGreen = 0;
+		int maxBlue = 0;
 		String[] rounds = game.split(";");
 
 		for (String round : rounds) {
-			int currentColour = getNumCubes(colour, round);
-			maxColour = Math.max(maxColour, currentColour);
+			maxRed = Math.max(maxRed, getNumCubes("red", round));
+			maxGreen = Math.max(maxGreen, getNumCubes("green", round));
+			maxBlue = Math.max(maxBlue, getNumCubes("blue", round));
+
 		}
 
-		return maxColour;
+		return maxRed * maxGreen * maxBlue;
 	}
 
 	public static int getNumCubes(String colour, String bag) {

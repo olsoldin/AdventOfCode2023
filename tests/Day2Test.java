@@ -1,6 +1,7 @@
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
+import javax.swing.*;
 import java.io.IOException;
 
 class Day2Test {
@@ -69,30 +70,11 @@ class Day2Test {
 		String game4 = "1 green, 3 red, 6 blue; 3 green, 6 red; 3 green, 15 blue, 14 red";
 		String game5 = "6 red, 1 blue, 3 green; 2 blue, 1 red, 2 green";
 
-		Assertions.assertEquals(4, Day2.minNumCubes("red", game1));
-		Assertions.assertEquals(2, Day2.minNumCubes("green", game1));
-		Assertions.assertEquals(6, Day2.minNumCubes("blue", game1));
-		Assertions.assertEquals(0, Day2.minNumCubes("", game1));
-
-		Assertions.assertEquals(1, Day2.minNumCubes("red", game2));
-		Assertions.assertEquals(3, Day2.minNumCubes("green", game2));
-		Assertions.assertEquals(4, Day2.minNumCubes("blue", game2));
-		Assertions.assertEquals(0, Day2.minNumCubes("", game2));
-
-		Assertions.assertEquals(20, Day2.minNumCubes("red", game3));
-		Assertions.assertEquals(13, Day2.minNumCubes("green", game3));
-		Assertions.assertEquals(6, Day2.minNumCubes("blue", game3));
-		Assertions.assertEquals(0, Day2.minNumCubes("", game3));
-
-		Assertions.assertEquals(14, Day2.minNumCubes("red", game4));
-		Assertions.assertEquals(3, Day2.minNumCubes("green", game4));
-		Assertions.assertEquals(15, Day2.minNumCubes("blue", game4));
-		Assertions.assertEquals(0, Day2.minNumCubes("", game4));
-
-		Assertions.assertEquals(6, Day2.minNumCubes("red", game5));
-		Assertions.assertEquals(3, Day2.minNumCubes("green", game5));
-		Assertions.assertEquals(2, Day2.minNumCubes("blue", game5));
-		Assertions.assertEquals(0, Day2.minNumCubes("", game5));
+		Assertions.assertEquals(4 * 2 * 6, Day2.minNumCubes(game1));
+		Assertions.assertEquals(1 * 3 * 4, Day2.minNumCubes(game2));
+		Assertions.assertEquals(20 * 13 * 6, Day2.minNumCubes(game3));
+		Assertions.assertEquals(14 * 3 * 15, Day2.minNumCubes(game4));
+		Assertions.assertEquals(6 * 3 * 2, Day2.minNumCubes(game5));
 	}
 
 	@Test
