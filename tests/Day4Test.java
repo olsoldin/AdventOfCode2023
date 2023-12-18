@@ -3,6 +3,9 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 class Day4Test {
@@ -82,5 +85,40 @@ class Day4Test {
 		Assertions.assertEquals(128, day4.getCardScore(8));
 		Assertions.assertEquals(256, day4.getCardScore(9));
 		Assertions.assertEquals(512, day4.getCardScore(10));
+	}
+
+	@Test
+	void getNumScratchcards() {
+		String pile = """
+				Card 1: 41 48 83 86 17 | 83 86  6 31 17  9 48 53
+				Card 2: 13 32 20 16 61 | 61 30 68 82 17 32 24 19
+				Card 3:  1 21 53 59 44 | 69 82 63 72 16 21 14  1
+				Card 4: 41 92 73 84 69 | 59 84 76 51 58  5 54 83
+				Card 5: 87 83 26 28 32 | 88 30 70 12 93 22 82 36
+				Card 6: 31 18 13 56 72 | 74 77 10 23 35 67 36 11
+				""";
+
+		Assertions.assertEquals(30, day4.getNumScratchcards(pile));
+	}
+	@Test
+	void getNumScratchcardsFull() throws IOException {
+		String pile = Utils.readTextFile("./res/Day4Pile.txt");
+
+		Assertions.assertEquals(12648035, day4.getNumScratchcards(pile));
+	}
+
+	@Test
+	void processCards() {
+		Scratchcard card1 = new Scratchcard(1, Set.of(41, 48, 83, 86, 17), 4);
+		Scratchcard card2 = new Scratchcard(2, Set.of(13, 32, 20, 16, 61), 2);
+		Scratchcard card3 = new Scratchcard(3, Set.of(1, 21, 53, 59, 44), 2);
+		Scratchcard card4 = new Scratchcard(4, Set.of(41, 92, 73, 84, 69), 1);
+		Scratchcard card5 = new Scratchcard(5, Set.of(87, 83, 26, 28, 32), 0);
+		Scratchcard card6 = new Scratchcard(6, Set.of(31, 18, 13, 56, 72), 0);
+
+		Map<Integer, Scratchcard> originalCards = Map.of(1, card1, 2, card2, 3, card3, 4, card4, 5, card5, 6, card6);
+		List<Scratchcard> cardsToProcess = new ArrayList<>(originalCards.values());
+
+		Assertions.assertEquals(30, day4.processCards(0, originalCards, cardsToProcess));
 	}
 }

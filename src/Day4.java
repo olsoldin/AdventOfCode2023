@@ -1,5 +1,4 @@
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 
 public class Day4 {
 
@@ -21,6 +20,45 @@ public class Day4 {
 
 		return sum;
 	}
+
+	public int getNumScratchcards(String pileOfScratchcards) {
+		Map<Integer, Scratchcard> originalCards = new HashMap<>();
+
+		String[] cards = pileOfScratchcards.trim().split("\n");
+
+		for (String card : cards) {
+			String cardNumber = card.split(":")[0].replaceAll("[^0-9]", "");
+			int cardNum = Integer.parseInt(cardNumber);
+			Set<Integer> winningNumbers = getWinningNumbers(card);
+			int numWinners = getNumWinners(winningNumbers, card);
+
+			originalCards.put(cardNum, new Scratchcard(cardNum, winningNumbers, numWinners));
+		}
+
+		return processCards(0, originalCards, originalCards.values());
+	}
+
+	public int processCards(int numProcessed, Map<Integer, Scratchcard> originalCards, Collection<Scratchcard> cardsToProcess) {
+		// Let's exit once there's nothing left to process
+		if (cardsToProcess.isEmpty()) {
+			return numProcessed;
+		}
+
+		List<Scratchcard> newCards = new ArrayList<>();
+
+		for (Scratchcard card : cardsToProcess) {
+			numProcessed++;
+
+			for (int i = card.getCardNumber() + 1; i < card.getCardNumber() + card.getNumWinners() + 1; i++) {
+				if (originalCards.containsKey(i)) {
+					newCards.add(originalCards.get(i));
+				}
+			}
+		}
+
+		return processCards(numProcessed, originalCards, newCards);
+	}
+
 
 	public Set<Integer> getWinningNumbers(String card) {
 		Set<Integer> winningNums = new HashSet<>();
