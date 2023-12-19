@@ -1,4 +1,6 @@
 import java.math.BigInteger;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Day5 {
 
@@ -47,6 +49,46 @@ public class Day5 {
 		return lowestLocation;
 	}
 
+	public BigInteger lowestLocationPart2(String almanac) {
+		BigInteger lowestLocation = BigInteger.valueOf(Long.MAX_VALUE);
+
+		String[] seedsToProcess = almanac.split("\n")[0]
+				.split(":")[1]
+				.trim()
+				.split(" ");
+
+
+		List<Thruple<BigInteger, BigInteger, BigInteger>> seedToSoilMap = parseMap(getMap(SEED_TO_SOIL, almanac));
+		List<Thruple<BigInteger, BigInteger, BigInteger>> soilToFertilizerMap = parseMap(getMap(SOIL_TO_FERTILIZER, almanac));
+		List<Thruple<BigInteger, BigInteger, BigInteger>> fertilizerToWaterMap = parseMap(getMap(FERTILIZER_TO_WATER, almanac));
+		List<Thruple<BigInteger, BigInteger, BigInteger>> waterToLightMap = parseMap(getMap(WATER_TO_LIGHT, almanac));
+		List<Thruple<BigInteger, BigInteger, BigInteger>> lightToTemperatureMap = parseMap(getMap(LIGHT_TO_TEMPERATURE, almanac));
+		List<Thruple<BigInteger, BigInteger, BigInteger>> temperatureToHumidityMap = parseMap(getMap(TEMPERATURE_TO_HUMIDITY, almanac));
+		List<Thruple<BigInteger, BigInteger, BigInteger>> humidityToLocationMap = parseMap(getMap(HUMIDITY_TO_LOCATION, almanac));
+
+
+		for (int i = 0; i < seedsToProcess.length - 1; i++) {
+			BigInteger start = new BigInteger(seedsToProcess[i]);
+			BigInteger range = new BigInteger(seedsToProcess[++i]);
+
+			while (range.compareTo(BigInteger.ZERO) >= 0) {
+				BigInteger soil = mapValue(seedToSoilMap, start.add(range));
+				BigInteger fertilizer = mapValue(soilToFertilizerMap, soil);
+				BigInteger water = mapValue(fertilizerToWaterMap, fertilizer);
+				BigInteger light = mapValue(waterToLightMap, water);
+				BigInteger temperature = mapValue(lightToTemperatureMap, light);
+				BigInteger humidity = mapValue(temperatureToHumidityMap, temperature);
+				BigInteger location = mapValue(humidityToLocationMap, humidity);
+
+				lowestLocation = lowestLocation.min(location);
+				range = range.subtract(BigInteger.ONE);
+			}
+		}
+
+
+		return lowestLocation;
+	}
+
 	public String getMap(String mapName, String almanac) {
 		String map = "";
 
@@ -63,6 +105,23 @@ public class Day5 {
 		return map.trim();
 	}
 
+	public List<Thruple<BigInteger, BigInteger, BigInteger>> parseMap(String map) {
+		List<Thruple<BigInteger, BigInteger, BigInteger>> parsedMaps = new ArrayList<>();
+
+		String[] rows = map.split("\n");
+
+		for (String row : rows) {
+			String[] parts = row.split("\\s");
+			BigInteger outIndex = new BigInteger(parts[0]);
+			BigInteger inIndex = new BigInteger(parts[1]);
+			BigInteger range = new BigInteger(parts[2]);
+
+			parsedMaps.add(new Thruple<>(inIndex, outIndex, range));
+		}
+
+		return parsedMaps;
+	}
+
 	public BigInteger mapValue(String map, BigInteger input) {
 		String[] mapRows = map.split("\n");
 
@@ -71,6 +130,22 @@ public class Day5 {
 			BigInteger outIndex = new BigInteger(parts[0]);
 			BigInteger inIndex = new BigInteger(parts[1]);
 			BigInteger range = new BigInteger(parts[2]);
+
+			if (input.compareTo(inIndex) >= 0 && input.compareTo(inIndex.add(range)) < 0) {
+				BigInteger difference = input.subtract(inIndex);
+				return outIndex.add(difference);
+			}
+		}
+
+		return input;
+	}
+
+	public BigInteger mapValue(List<Thruple<BigInteger, BigInteger, BigInteger>> map, BigInteger input) {
+
+		for (Thruple<BigInteger, BigInteger, BigInteger> row : map) {
+			BigInteger outIndex = row.y();
+			BigInteger inIndex = row.x();
+			BigInteger range = row.z();
 
 			if (input.compareTo(inIndex) >= 0 && input.compareTo(inIndex.add(range)) < 0) {
 				BigInteger difference = input.subtract(inIndex);
