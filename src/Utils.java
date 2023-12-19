@@ -9,7 +9,7 @@ public class Utils {
 	@org.jetbrains.annotations.NotNull
 	@org.jetbrains.annotations.Contract("_ -> new")
 	public static String readTextFile(String fileName) throws IOException {
-		return new String(Files.readAllBytes(Paths.get(fileName)));
+		return new String(Files.readAllBytes(Paths.get(fileName))).replaceAll("\r\n", "\n");
 	}
 
 	public static int startsWithTextInt(String str) {
