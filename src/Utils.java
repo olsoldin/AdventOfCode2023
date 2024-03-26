@@ -1,8 +1,13 @@
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import java.io.IOException;
+import java.math.BigInteger;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.regex.Pattern;
 
 public class Utils {
 
@@ -56,5 +61,45 @@ public class Utils {
 			case "nine" -> 9;
 			default -> -1;
 		};
+	}
+
+	public static @NotNull List<Integer> extractIntegers(@NotNull String input) {
+		List<Integer> ints = new ArrayList<>();
+
+		// Split the string on any non-digit characters
+		Pattern pattern = Pattern.compile("\\D+");
+		String[] parts = pattern.split(input);
+
+		for (String part : parts) {
+			if (part.trim().isEmpty()) {
+				continue;
+			}
+			try {
+				ints.add(Integer.valueOf(part));
+			} catch (NumberFormatException e) {
+				System.err.println(part + " is not an Integer: " + e);
+			}
+		}
+
+		return ints;
+	}
+
+	public static @Nullable BigInteger extractBigIntegerAsOne(@NotNull String input) {
+		// Split the string on any non-digit characters
+		Pattern pattern = Pattern.compile("\\D+");
+		String[] parts = pattern.split(input);
+
+		StringBuilder sb = new StringBuilder();
+
+		for (String part : parts) {
+			sb.append(part);
+		}
+
+		try {
+			return new BigInteger(sb.toString());
+		} catch (NumberFormatException e) {
+			System.err.println(sb + " is not a number: " + e);
+		}
+		return null;
 	}
 }

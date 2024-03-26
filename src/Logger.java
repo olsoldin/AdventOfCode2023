@@ -9,7 +9,7 @@ public class Logger {
 	public void log(String message) {
 		String callerMethod = StackWalker
 				.getInstance()
-				.walk(stream -> stream.skip(1).findFirst().get())
+				.walk(stream -> stream.skip(1).findFirst().orElseThrow())
 				.getMethodName();
 		System.out.println(callerMethod + ":: " + message);
 	}

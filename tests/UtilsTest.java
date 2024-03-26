@@ -2,6 +2,8 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
+import java.math.BigInteger;
+import java.util.List;
 
 class UtilsTest {
 
@@ -71,5 +73,21 @@ class UtilsTest {
 		Assertions.assertEquals(-1, Utils.endsWithTextInt("one nothing "));
 		Assertions.assertEquals(-1, Utils.endsWithTextInt("on444e"));
 		Assertions.assertEquals(-1, Utils.endsWithTextInt(""));
+	}
+
+	@Test
+	void extractIntegers() {
+		Assertions.assertEquals(List.of(1, 2, 3, 4, 5), Utils.extractIntegers("1 2 3 4 5"));
+		Assertions.assertEquals(List.of(1, 2, 3, 4, 5), Utils.extractIntegers("hi1mum!2 3 4 5"));
+		Assertions.assertEquals(List.of(1, 2, 3, 4, 5), Utils.extractIntegers("1   2  3   4   5   "));
+		Assertions.assertEquals(List.of(), Utils.extractIntegers(""));
+		Assertions.assertEquals(List.of(), Utils.extractIntegers("Hello World!"));
+	}
+
+	@Test
+	void extractIntegerAsOne() {
+		Assertions.assertEquals(BigInteger.valueOf(1234), Utils.extractBigIntegerAsOne("1234"));
+		Assertions.assertEquals(BigInteger.valueOf(1234), Utils.extractBigIntegerAsOne("1 2 3 4 "));
+		Assertions.assertEquals(BigInteger.valueOf(1234), Utils.extractBigIntegerAsOne("1Hi!23 4 "));
 	}
 }
