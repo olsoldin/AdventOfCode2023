@@ -9,7 +9,7 @@ public class Day7 {
 	private static final String JOKER = "J";
 
 
-	private int compareHands(Tuple<String, Long> o1, Tuple<String, Long> o2) {
+	private int compareHands(@NotNull Tuple<String, Long> o1, @NotNull Tuple<String, Long> o2) {
 		HAND h1 = getHandType(o1);
 		HAND h2 = getHandType(o2);
 
@@ -28,7 +28,7 @@ public class Day7 {
 		return h2.compareTo(h1);
 	}
 
-	private int compareHandsJoker(Thruple<String, String, Long> o1, Thruple<String, String, Long> o2) {
+	private int compareHandsJoker(@NotNull Thruple<String, String, Long> o1, @NotNull Thruple<String, String, Long> o2) {
 		HAND h1 = getHandType(new Tuple<>(o1.x(), o1.z()));
 		HAND h2 = getHandType(new Tuple<>(o2.x(), o2.z()));
 
@@ -66,7 +66,7 @@ public class Day7 {
 		return calculateWinnings(sortedHands);
 	}
 
-	public HAND getHandType(@NotNull Tuple<String, Long> hand) {
+	public @NotNull HAND getHandType(@NotNull Tuple<String, Long> hand) {
 		Map<String, Integer> cardCount = new HashMap<>();
 
 		for (char c : hand.startIndex().toCharArray()) {
@@ -94,19 +94,19 @@ public class Day7 {
 	}
 
 
-	public List<Tuple<String, Long>> sortHands(@NotNull List<Tuple<String, Long>> hands) {
+	public @NotNull List<Tuple<String, Long>> sortHands(@NotNull List<Tuple<String, Long>> hands) {
 		List<Tuple<String, Long>> sortedHands = new ArrayList<>(hands);
 		sortedHands.sort(this::compareHands);
 		return sortedHands;
 	}
 
-	public List<Tuple<String, Long>> sortJokerHands(@NotNull List<Thruple<String, String, Long>> hands) {
+	public @NotNull List<Tuple<String, Long>> sortJokerHands(@NotNull List<Thruple<String, String, Long>> hands) {
 		List<Thruple<String, String, Long>> sortedHands = new ArrayList<>(hands);
 		sortedHands.sort(this::compareHandsJoker);
 		return sortedHands.stream().map(hand -> new Tuple<>(hand.x(), hand.z())).toList();
 	}
 
-	public List<Tuple<String, Long>> parseHands(@NotNull String input) throws NumberFormatException {
+	public @NotNull List<Tuple<String, Long>> parseHands(@NotNull String input) throws NumberFormatException {
 		List<Tuple<String, Long>> hands = new ArrayList<>();
 
 		String[] lines = input.trim().split("\n");
@@ -121,7 +121,7 @@ public class Day7 {
 		return hands;
 	}
 
-	public Long calculateWinnings(@NotNull List<Tuple<String, Long>> sortedHands) {
+	public @NotNull Long calculateWinnings(@NotNull List<Tuple<String, Long>> sortedHands) {
 		long winnings = 0L;
 
 		for (int i = 0; i < sortedHands.size(); i++) {
@@ -146,7 +146,7 @@ public class Day7 {
 		return calculateWinnings(sortedHands);
 	}
 
-	public Tuple<String, Long> getHandWithoutJokers(@NotNull Tuple<String, Long> hand) {
+	public @NotNull Tuple<String, Long> getHandWithoutJokers(@NotNull Tuple<String, Long> hand) {
 		// Doesn't contain any jokers anyway
 		if (!hand.startIndex().contains(JOKER)) {
 			return hand;

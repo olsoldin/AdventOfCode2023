@@ -72,7 +72,7 @@ public class Day3 {
 		return !Character.isDigit(haystack.charAt(needle)) && haystack.charAt(needle) != '.';
 	}
 
-	public List<NumberLocation> getNumberLocations(@NotNull String row) {
+	public @NotNull List<NumberLocation> getNumberLocations(@NotNull String row) {
 		List<NumberLocation> numberLocations = new ArrayList<>();
 		StringBuilder currNum = new StringBuilder();
 
@@ -107,7 +107,7 @@ public class Day3 {
 		return numberLocations;
 	}
 
-	public int sumGearRatios(String engineSchematic) {
+	public int sumGearRatios(@NotNull String engineSchematic) {
 		int sum = 0;
 
 		String[] rows = engineSchematic.trim().split("\n");
@@ -158,7 +158,7 @@ public class Day3 {
 		return sum;
 	}
 
-	public List<Integer> getAdjacentGears(int gearLoc, List<NumberLocation> rowAbove, List<NumberLocation> row, List<NumberLocation> rowBelow) {
+	public @NotNull List<Integer> getAdjacentGears(int gearLoc, @NotNull List<NumberLocation> rowAbove, @NotNull List<NumberLocation> row, @NotNull List<NumberLocation> rowBelow) {
 		List<Integer> adjacentGears = new ArrayList<>();
 
 		List<NumberLocation> allLocs = new ArrayList<>(rowAbove.size() + row.size() + rowBelow.size());
@@ -182,11 +182,11 @@ public class Day3 {
 		return List.of();
 	}
 
-	public boolean locIntersects(int gearLoc, NumberLocation numberLocation) {
+	public boolean locIntersects(int gearLoc, @NotNull NumberLocation numberLocation) {
 		return gearLoc >= numberLocation.startIndex() - 1 && gearLoc <= numberLocation.endIndex() + 1;
 	}
 
-	public List<Integer> getGearLocations(String row) {
+	public @NotNull List<Integer> getGearLocations(@NotNull String row) {
 		List<Integer> gearLocs = new ArrayList<>();
 
 		for (int i = 0; i < row.length(); i++) {

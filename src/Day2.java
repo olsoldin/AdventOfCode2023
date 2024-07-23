@@ -5,7 +5,7 @@ import java.util.regex.Pattern;
 
 public class Day2 {
 
-	public static int sumPossibleGames(@NotNull String inGames, String bag) {
+	public static int sumPossibleGames(@NotNull String inGames, @NotNull String bag) {
 		int sum = 0;
 
 		String[] games = inGames.split("\n");
@@ -74,7 +74,7 @@ public class Day2 {
 		return maxRed * maxGreen * maxBlue;
 	}
 
-	public static int getNumCubes(String colour, String bag) {
+	public static int getNumCubes(@NotNull String colour, @NotNull String bag) {
 		if (colour.trim().isEmpty()) {
 			return 0;
 		}

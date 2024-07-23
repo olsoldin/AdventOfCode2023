@@ -11,7 +11,7 @@ public class Day8 {
 		LEFT, RIGHT
 	}
 
-	public List<MOVE> parseMoves(@NotNull String map) {
+	public @NotNull List<MOVE> parseMoves(@NotNull String map) {
 		List<MOVE> moves = new ArrayList<>(map.length());
 		for (char c : map.toCharArray()) {
 			if (c == 'L') {
@@ -23,7 +23,7 @@ public class Day8 {
 		return moves;
 	}
 
-	public Map<String, Tuple<String, String>> parseNodes(String @NotNull [] map) {
+	public @NotNull Map<String, Tuple<String, String>> parseNodes(String @NotNull [] map) {
 		Map<String, Tuple<String, String>> nodes = new HashMap<>();
 
 		for (String line : map) {
@@ -66,7 +66,7 @@ public class Day8 {
 	}
 
 
-	private long numStepsToGetToNode(List<MOVE> moves, Map<String, Tuple<String, String>> nodes, String startingNode, String lastNode) {
+	private long numStepsToGetToNode(@NotNull List<MOVE> moves, @NotNull Map<String, Tuple<String, String>> nodes, String startingNode, @NotNull String lastNode) {
 		int numSteps = 0;
 		String currentNode = startingNode;
 

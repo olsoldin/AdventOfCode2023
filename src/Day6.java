@@ -1,4 +1,5 @@
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import java.math.BigInteger;
 import java.util.ArrayList;
@@ -9,7 +10,7 @@ public class Day6 {
 	public Day6() {
 	}
 
-	public Long numWaysToBeatRecord(@NotNull String records) {
+	public @Nullable Long numWaysToBeatRecord(@NotNull String records) {
 		String[] lines = records.split("\n");
 		List<Integer> times = Utils.extractIntegers(lines[0]);
 		List<Integer> dists = Utils.extractIntegers(lines[1]);
@@ -32,7 +33,7 @@ public class Day6 {
 				.orElse(null);
 	}
 
-	public List<Integer> calculatePossibleDistances(Integer time) {
+	public @NotNull List<Integer> calculatePossibleDistances(Integer time) {
 		List<Integer> distances = new ArrayList<>();
 
 		for (int btnPressed = 0; btnPressed <= time; btnPressed++) {

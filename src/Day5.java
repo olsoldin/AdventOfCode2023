@@ -1,21 +1,23 @@
+import org.jetbrains.annotations.NotNull;
+
 import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
 
 public class Day5 {
 
-	public static String SEED_TO_SOIL = "seed-to-soil";
-	public static String SOIL_TO_FERTILIZER = "soil-to-fertilizer";
-	public static String FERTILIZER_TO_WATER = "fertilizer-to-water";
-	public static String WATER_TO_LIGHT = "water-to-light";
-	public static String LIGHT_TO_TEMPERATURE = "light-to-temperature";
-	public static String TEMPERATURE_TO_HUMIDITY = "temperature-to-humidity";
-	public static String HUMIDITY_TO_LOCATION = "humidity-to-location";
+	public static @NotNull String SEED_TO_SOIL = "seed-to-soil";
+	public static @NotNull String SOIL_TO_FERTILIZER = "soil-to-fertilizer";
+	public static @NotNull String FERTILIZER_TO_WATER = "fertilizer-to-water";
+	public static @NotNull String WATER_TO_LIGHT = "water-to-light";
+	public static @NotNull String LIGHT_TO_TEMPERATURE = "light-to-temperature";
+	public static @NotNull String TEMPERATURE_TO_HUMIDITY = "temperature-to-humidity";
+	public static @NotNull String HUMIDITY_TO_LOCATION = "humidity-to-location";
 
 	public Day5() {
 	}
 
-	public BigInteger lowestLocation(String almanac) {
+	public @NotNull BigInteger lowestLocation(@NotNull String almanac) {
 		BigInteger lowestLocation = BigInteger.valueOf(Long.MAX_VALUE);
 
 		String[] seeds = almanac.split("\n")[0]
@@ -49,7 +51,7 @@ public class Day5 {
 		return lowestLocation;
 	}
 
-	public BigInteger lowestLocationPart2(String almanac) {
+	public @NotNull BigInteger lowestLocationPart2(@NotNull String almanac) {
 		BigInteger lowestLocation = BigInteger.valueOf(Long.MAX_VALUE);
 
 		String[] seedsToProcess = almanac.split("\n")[0]
@@ -89,7 +91,7 @@ public class Day5 {
 		return lowestLocation;
 	}
 
-	public String getMap(String mapName, String almanac) {
+	public @NotNull String getMap(@NotNull String mapName, @NotNull String almanac) {
 		String map = "";
 
 		String[] parts = almanac.split("\n\n");
@@ -105,7 +107,7 @@ public class Day5 {
 		return map.trim();
 	}
 
-	public List<Thruple<BigInteger, BigInteger, BigInteger>> parseMap(String map) {
+	public @NotNull List<Thruple<BigInteger, BigInteger, BigInteger>> parseMap(@NotNull String map) {
 		List<Thruple<BigInteger, BigInteger, BigInteger>> parsedMaps = new ArrayList<>();
 
 		String[] rows = map.split("\n");
@@ -122,7 +124,7 @@ public class Day5 {
 		return parsedMaps;
 	}
 
-	public BigInteger mapValue(String map, BigInteger input) {
+	public BigInteger mapValue(@NotNull String map, @NotNull BigInteger input) {
 		String[] mapRows = map.split("\n");
 
 		for (String row : mapRows) {
@@ -140,7 +142,7 @@ public class Day5 {
 		return input;
 	}
 
-	public BigInteger mapValue(List<Thruple<BigInteger, BigInteger, BigInteger>> map, BigInteger input) {
+	public BigInteger mapValue(@NotNull List<Thruple<BigInteger, BigInteger, BigInteger>> map, @NotNull BigInteger input) {
 
 		for (Thruple<BigInteger, BigInteger, BigInteger> row : map) {
 			BigInteger outIndex = row.y();

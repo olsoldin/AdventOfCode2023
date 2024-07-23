@@ -1,3 +1,5 @@
+import org.jetbrains.annotations.NotNull;
+
 public class Day1 {
 
 	private static final Logger logger = new Logger();
@@ -16,7 +18,7 @@ public class Day1 {
 	 * <p>
 	 * Consider your entire calibration document. What is the sum of all of the calibration values?
 	 */
-	public static int calibrationSum(String calibrationDocument) {
+	public static int calibrationSum(@NotNull String calibrationDocument) {
 		int sum = 0;
 		String[] lines = calibrationDocument.split("\n");
 
@@ -69,7 +71,7 @@ public class Day1 {
 	 *
 	 * @return sum
 	 */
-	public static int calibrationSumPart2(String calibrationDocument) {
+	public static int calibrationSumPart2(@NotNull String calibrationDocument) {
 		int sum = 0;
 
 		String[] lines = calibrationDocument.split("\n");

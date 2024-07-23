@@ -1,3 +1,5 @@
+import org.jetbrains.annotations.NotNull;
+
 import java.util.*;
 
 public class Day4 {
@@ -5,7 +7,7 @@ public class Day4 {
 	public Day4() {
 	}
 
-	public int getPileValue(String pileOfScratchcards) {
+	public int getPileValue(@NotNull String pileOfScratchcards) {
 		int sum = 0;
 
 		String[] cards = pileOfScratchcards.trim().split("\n");
@@ -21,7 +23,7 @@ public class Day4 {
 		return sum;
 	}
 
-	public int getNumScratchcards(String pileOfScratchcards) {
+	public int getNumScratchcards(@NotNull String pileOfScratchcards) {
 		Map<Integer, Scratchcard> originalCards = new HashMap<>();
 
 		String[] cards = pileOfScratchcards.trim().split("\n");
@@ -38,7 +40,7 @@ public class Day4 {
 		return processCards(0, originalCards, originalCards.values());
 	}
 
-	public int processCards(int numProcessed, Map<Integer, Scratchcard> originalCards, Collection<Scratchcard> cardsToProcess) {
+	public int processCards(int numProcessed, @NotNull Map<Integer, Scratchcard> originalCards, @NotNull Collection<Scratchcard> cardsToProcess) {
 		// Let's exit once there's nothing left to process
 		if (cardsToProcess.isEmpty()) {
 			return numProcessed;
@@ -60,7 +62,7 @@ public class Day4 {
 	}
 
 
-	public Set<Integer> getWinningNumbers(String card) {
+	public @NotNull Set<Integer> getWinningNumbers(@NotNull String card) {
 		Set<Integer> winningNums = new HashSet<>();
 
 		String[] parts = card.split("\\|");
@@ -73,7 +75,7 @@ public class Day4 {
 		return winningNums;
 	}
 
-	public int getNumWinners(Set<Integer> winningNumbers, String card) {
+	public int getNumWinners(@NotNull Set<Integer> winningNumbers, @NotNull String card) {
 		int numWinners = 0;
 
 		String[] parts = card.split("\\|");

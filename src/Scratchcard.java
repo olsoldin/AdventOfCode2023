@@ -1,5 +1,5 @@
-import java.util.HashSet;
-import java.util.Objects;
+import org.jetbrains.annotations.NotNull;
+
 import java.util.Set;
 
 public class Scratchcard {
@@ -38,7 +38,7 @@ public class Scratchcard {
 	}
 
 	@Override
-	public String toString() {
+	public @NotNull String toString() {
 		return "Scratchcard{" + "cardNumber=" + cardNumber +
 				", winningNumbers=" + winningNumbers +
 				", numWinners=" + numWinners +
