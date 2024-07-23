@@ -16,8 +16,9 @@ public class Day1 {
 	 * <p>
 	 * In this example, the calibration values of these four lines are 12, 38, 15, and 77. Adding these together produces 142.
 	 * <p>
-	 * Consider your entire calibration document. What is the sum of all of the calibration values?
+	 * Consider your entire calibration document. What is the sum of all the calibration values?
 	 */
+	@SuppressWarnings("GrazieInspection")
 	public static int calibrationSum(@NotNull String calibrationDocument) {
 		int sum = 0;
 		String[] lines = calibrationDocument.split("\n");
@@ -71,6 +72,7 @@ public class Day1 {
 	 *
 	 * @return sum
 	 */
+	@SuppressWarnings("GrazieInspection")
 	public static int calibrationSumPart2(@NotNull String calibrationDocument) {
 		int sum = 0;
 

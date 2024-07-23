@@ -6,13 +6,13 @@ import java.util.List;
 
 public class Day5 {
 
-	public static @NotNull String SEED_TO_SOIL = "seed-to-soil";
-	public static @NotNull String SOIL_TO_FERTILIZER = "soil-to-fertilizer";
-	public static @NotNull String FERTILIZER_TO_WATER = "fertilizer-to-water";
-	public static @NotNull String WATER_TO_LIGHT = "water-to-light";
-	public static @NotNull String LIGHT_TO_TEMPERATURE = "light-to-temperature";
-	public static @NotNull String TEMPERATURE_TO_HUMIDITY = "temperature-to-humidity";
-	public static @NotNull String HUMIDITY_TO_LOCATION = "humidity-to-location";
+	public static final @NotNull String SEED_TO_SOIL = "seed-to-soil";
+	public static final @NotNull String SOIL_TO_FERTILIZER = "soil-to-fertilizer";
+	public static final @NotNull String FERTILIZER_TO_WATER = "fertilizer-to-water";
+	public static final @NotNull String WATER_TO_LIGHT = "water-to-light";
+	public static final @NotNull String LIGHT_TO_TEMPERATURE = "light-to-temperature";
+	public static final @NotNull String TEMPERATURE_TO_HUMIDITY = "temperature-to-humidity";
+	public static final @NotNull String HUMIDITY_TO_LOCATION = "humidity-to-location";
 
 	public Day5() {
 	}

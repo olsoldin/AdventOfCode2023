@@ -1,7 +1,6 @@
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-import javax.swing.*;
 import java.io.IOException;
 
 class Day2Test {
@@ -71,6 +70,7 @@ class Day2Test {
 		String game5 = "6 red, 1 blue, 3 green; 2 blue, 1 red, 2 green";
 
 		Assertions.assertEquals(4 * 2 * 6, Day2.minNumCubes(game1));
+		//noinspection PointlessArithmeticExpression
 		Assertions.assertEquals(1 * 3 * 4, Day2.minNumCubes(game2));
 		Assertions.assertEquals(20 * 13 * 6, Day2.minNumCubes(game3));
 		Assertions.assertEquals(14 * 3 * 15, Day2.minNumCubes(game4));
