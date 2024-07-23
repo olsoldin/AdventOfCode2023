@@ -102,4 +102,19 @@ public class Utils {
 		}
 		return null;
 	}
+
+
+	public static long findGCD(long a, long b) {
+		if (b == 0) return a;
+		return findGCD(b, a % b);
+	}
+
+	public static long findLCM(@NotNull List<Long> numbers) {
+		long lcm = numbers.get(0);
+		for (int i = 1; i < numbers.size(); i++) {
+			long gcd = findGCD(lcm, numbers.get(i));
+			lcm = (lcm * numbers.get(i)) / gcd;
+		}
+		return lcm;
+	}
 }

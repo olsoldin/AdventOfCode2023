@@ -61,18 +61,44 @@ public class Day8 {
 		// The rest are the nodes
 		Map<String, Tuple<String, String>> nodes = parseNodes(nodesStr);
 
+		return numStepsToGetToNode(moves, nodes, "AAA", "ZZZ");
 
-		long numSteps = 0;
+	}
 
-		// First node
-		String currentNode = "AAA";
 
-		String lastNode = "ZZZ";
-		while (!Objects.equals(currentNode, lastNode)) {
-			MOVE currentMove = moves.get((int) (numSteps++ % moves.size()));
+	private long numStepsToGetToNode(List<MOVE> moves, Map<String, Tuple<String, String>> nodes, String startingNode, String lastNode) {
+		int numSteps = 0;
+		String currentNode = startingNode;
+
+		while (!currentNode.endsWith(lastNode)) {
+			MOVE currentMove = moves.get(numSteps++ % moves.size());
 			currentNode = getNextNode(nodes, currentNode, currentMove);
 		}
 
 		return numSteps;
+	}
+
+
+	public long getNumberOfStepsPart2(@NotNull String mapStr) {
+		String[] lines = mapStr.split("\n");
+		String[] nodesStr = new String[lines.length - 2];
+		System.arraycopy(lines, 2, nodesStr, 0, nodesStr.length);
+
+		// First row is the moves
+		List<MOVE> moves = parseMoves(lines[0]);
+
+		// The rest are the nodes
+		Map<String, Tuple<String, String>> nodes = parseNodes(nodesStr);
+
+		// Get the num steps from start to finish for each chain
+		List<Long> chainCounts = new ArrayList<>();
+		for (String currentNode : nodes.keySet()) {
+			if (currentNode.endsWith("A")) {
+				chainCounts.add(numStepsToGetToNode(moves, nodes, currentNode, "Z"));
+			}
+		}
+
+		// Return the lowest common multiple of all step counts
+		return Utils.findLCM(chainCounts);
 	}
 }

@@ -3,6 +3,7 @@ import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
 import java.math.BigInteger;
+import java.util.ArrayList;
 import java.util.List;
 
 class UtilsTest {
@@ -89,5 +90,25 @@ class UtilsTest {
 		Assertions.assertEquals(BigInteger.valueOf(1234), Utils.extractBigIntegerAsOne("1234"));
 		Assertions.assertEquals(BigInteger.valueOf(1234), Utils.extractBigIntegerAsOne("1 2 3 4 "));
 		Assertions.assertEquals(BigInteger.valueOf(1234), Utils.extractBigIntegerAsOne("1Hi!23 4 "));
+	}
+
+	@Test
+	void findGCD() {
+		Assertions.assertEquals(10L, Utils.findGCD(100L, 10L));
+		Assertions.assertEquals(2L, Utils.findGCD(458L, 78L));
+		Assertions.assertEquals(2L, Utils.findGCD(6546L, 758L));
+		Assertions.assertEquals(1L, Utils.findGCD(5L, 3L));
+	}
+
+	@Test
+	void findLCM() {
+		List<Long> numbers = new ArrayList<>();
+		numbers.add(10L);
+		numbers.add(53L);
+		numbers.add(1L);
+		numbers.add(47L);
+		numbers.add(5L);
+
+		Assertions.assertEquals(24910L, Utils.findLCM(numbers));
 	}
 }
